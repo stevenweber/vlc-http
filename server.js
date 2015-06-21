@@ -52,6 +52,11 @@ app.get('/stop', function(req, res) {
   res.redirect('/');
 });
 
+app.get('/pause', function(req, res) {
+  vlc.status.pause(function() {}, function(error) {});
+  res.redirect('/');
+});
+
 app.get('/',function(req,res){
   res.sendFile(__dirname + "/app/views/index.html");
 });
