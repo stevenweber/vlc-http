@@ -1,0 +1,50 @@
+<html>
+  <head>
+    <title>
+      vlc-http
+    </title>
+
+    <link rel="stylesheet" href="/assets/css/index.css" />
+    <link href='http://fonts.googleapis.com/css?family=Rock+Salt' rel='stylesheet' type='text/css'>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/assets/javascripts/index.js"></script>
+  </head>
+
+  <body>
+    <h1>
+      vlc-http
+    </h1>
+
+    <img id="artwork" src="" />
+
+    <div id="now-playing">
+      <h2>
+        <span id="title">
+          Nothing Playing
+        </span>
+      </h2>
+
+      <h3 id="artist">
+      </h3>
+    </div>
+
+    <div id="song-list">
+      <h4>
+        Available Songs
+      </h4>
+
+      <ul id="available-songs">
+      </ul>
+    </div>
+
+    <form id="upload-form"
+      enctype="multipart/form-data"
+      action="/api/songs"
+      method="post"
+      >
+
+      <input id="song-input" type="file" name="song" />
+    </form>
+  </body>
+</html>
