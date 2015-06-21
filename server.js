@@ -28,8 +28,17 @@ app.get('/vlc*', function(req, res) {
 
 app.get('/play', function(req, res) {
   var songName = req.query.title;
-  vlc.status.play(songsDir + '/' + songName, {}, function(error) {});
-  res.redirect('/');
+  var songMatcher = new RegExp(songName, 'i');
+  var matchedFile;
+
+  fs.readdir(songsDir, function(err, files) {
+    matchedFile = files.reduce(function(song, path) {
+      return path.match(songMatcher) ? path : song;
+    }, undefined);
+
+    vlc.status.play(songsDir + '/' + matchedFile, {}, function(error) {});
+    res.redirect('/');
+  });
 });
 
 app.get('/stop', function(req, res) {
