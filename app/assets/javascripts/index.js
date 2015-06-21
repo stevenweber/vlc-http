@@ -54,19 +54,22 @@ $(document).ready(function() {
     $.ajax({
       url: '/vlc/requests/status.xml',
       success: function(data) {
-        View.notPlaying.hide();
-        View.nowPlaying.show();
-
         var status = $(data);
         var title = status.find('info[name=title]').text();
         var artist = status.find('info[name=artist]').text();
 
-        View.title.html(title);
-        View.artist.html(artist);
+        if (title) {
+          View.title.html(title);
+          View.artist.html(artist);
+
+          View.notPlaying.hide();
+          View.nowPlaying.show();
+        } else {
+          View.notPlaying.show();
+          View.nowPlaying.hide();
+        }
       },
       error: function() {
-        View.notPlaying.show();
-        View.nowPlaying.hide();
       }
     });
   }
