@@ -24,10 +24,15 @@ $(document).ready(function() {
     $.get('/api/songs', function(data) {
       View.songs.html('');
       data.songs.forEach(function(songTitle) {
+        var songParam = $.param({
+          title: encodeURI(songTitle)
+        });
+
         var songLink = $('<a>', {
-          href: ('/play?title=' + songTitle),
+          href: ('/play?' + songParam),
           html: songTitle
         });
+
         var songView = $('<li>', { html: songLink });
         View.songs.append(songView);
       });

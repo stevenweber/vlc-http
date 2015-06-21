@@ -26,9 +26,15 @@ app.get('/vlc*', function(req, res) {
   request(vlcUrl).pipe(res);
 });
 
+// http://stackoverflow.com/questions/3446170/escape-string-for-use-in-javascript-regex
+var songRegex = function(str) {
+  var escapedString = str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+  return new RegExp(escapedString, 'i');
+}
+
 app.get('/play', function(req, res) {
-  var songName = req.query.title;
-  var songMatcher = new RegExp(songName, 'i');
+  var songName = decodeURI(req.query.title);
+  var songMatcher = songRegex(songName);
   var matchedFile;
 
   fs.readdir(songsDir, function(err, files) {
