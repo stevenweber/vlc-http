@@ -38,9 +38,13 @@ app.get('/play', function(req, res) {
   var matchedFile;
 
   fs.readdir(songsDir, function(err, files) {
-    matchedFile = files.reduce(function(song, path) {
-      return path.match(songMatcher) ? path : song;
-    }, undefined);
+    if (songName === 'something') {
+      matchedFile = files[Math.floor(Math.random() * files.length)];
+    } else {
+      matchedFile = files.reduce(function(song, path) {
+        return path.match(songMatcher) ? path : song;
+      }, undefined);
+    }
 
     vlc.status.play(songsDir + '/' + matchedFile, {}, function(error) {});
     res.redirect('/');
