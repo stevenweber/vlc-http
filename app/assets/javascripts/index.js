@@ -4,7 +4,9 @@ $(document).ready(function() {
     title: $('#title'),
     artist: $('#artist'),
     art: $('#artwork'),
-    uploadForm: $('#upload-form')
+    uploadForm: $('#upload-form'),
+    nowPlaying: $('#now-playing'),
+    notPlaying: $('#not-playing')
   };
 
   var poll = function(callback) {
@@ -22,7 +24,11 @@ $(document).ready(function() {
     $.get('/api/songs', function(data) {
       View.songs.html('');
       data.songs.forEach(function(songTitle) {
-        var songView = $('<li>', { html: songTitle });
+        var songLink = $('<a>', {
+          href: ('/play?title=' + songTitle),
+          html: songTitle
+        });
+        var songView = $('<li>', { html: songLink });
         View.songs.append(songView);
       });
     });
@@ -45,13 +51,23 @@ $(document).ready(function() {
   poll(updateAlbumArt);
 
   var updateStatus = function() {
-    $.get('/vlc/requests/status.xml').then(function(data) {
-      var status = $(data);
-      var title = status.find('info[name=title]').text() || 'Nothing Playing';
-      var artist = status.find('info[name=artist]').text();
+    $.ajax({
+      url: '/vlc/requests/status.xml',
+      success: function(data) {
+        View.notPlaying.hide();
+        View.nowPlaying.show();
 
-      View.title.html(title);
-      View.artist.html(artist);
+        var status = $(data);
+        var title = status.find('info[name=title]').text();
+        var artist = status.find('info[name=artist]').text();
+
+        View.title.html(title);
+        View.artist.html(artist);
+      },
+      error: function() {
+        View.notPlaying.show();
+        View.nowPlaying.hide();
+      }
     });
   }
   poll(updateStatus);

@@ -4,8 +4,15 @@ var multer = require('multer');
 var request = require('request');
 
 var app = express();
-var songsDir = './library/';
-var vlcHost = 'http://10.0.100.2:8080';
+var songsDir = (__dirname + '/library');
+// var vlcHost = '10.0.100.2';
+var vlcHost = '127.0.0.1';
+var vlcPort = '8080';
+
+var vlc = require('vlc-api')({
+  host: vlcHost,
+  port: vlcPort
+})
 
 app.use(multer({
   dest: songsDir,
@@ -15,8 +22,19 @@ app.use(multer({
 }));
 
 app.get('/vlc*', function(req, res) {
-  var vlcUrl = (vlcHost + req.path.match(new RegExp('/vlc(.*)'))[1]);
+  var vlcUrl = ('http://' + vlcHost + ':' + vlcPort + req.path.match(new RegExp('/vlc(.*)'))[1]);
   request(vlcUrl).pipe(res);
+});
+
+app.get('/play', function(req, res) {
+  var songName = req.query.title;
+  vlc.status.play(songsDir + '/' + songName, {}, function(error) {});
+  res.redirect('/');
+});
+
+app.get('/stop', function(req, res) {
+  vlc.status.stop(function(error) {});
+  res.redirect('/');
 });
 
 app.get('/',function(req,res){
