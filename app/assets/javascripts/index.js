@@ -6,7 +6,8 @@ $(document).ready(function() {
     art: $('#artwork'),
     uploadForm: $('#upload-form'),
     nowPlaying: $('#now-playing'),
-    notPlaying: $('#not-playing')
+    notPlaying: $('#not-playing'),
+    playbackPosition: $('#position')
   };
 
   var poll = function(callback) {
@@ -55,6 +56,24 @@ $(document).ready(function() {
   }
   poll(updateAlbumArt);
 
+  var updatePlayback = function() {
+    $.ajax({
+      url: '/vlc/requests/status.xml',
+      success: function(data) {
+        var status = $(data);
+        var time = parseInt(status.find('time').text());
+        var length = parseInt(status.find('length').text());
+        var position = (time/length);
+
+        if (position) {
+          var formattedPosition = ((position * 100) + '%');
+          View.playbackPosition.css({ width: formattedPosition });
+        }
+      }
+    });
+  }
+  poll(updatePlayback);
+
   var updateStatus = function() {
     $.ajax({
       url: '/vlc/requests/status.xml',
@@ -69,6 +88,7 @@ $(document).ready(function() {
 
           View.notPlaying.hide();
           View.nowPlaying.show();
+
         } else {
           View.notPlaying.show();
           View.nowPlaying.hide();

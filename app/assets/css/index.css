@@ -2,36 +2,52 @@ html {
   padding: 5%;
   text-align: center;
   min-height: 100%;
-  line-height: 1.4em;
+  line-height: 2em;
   font-size: 1.2em;
   font-family: 'Rock Salt', cursive;
   color: #666;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  color: #333;
+body {
+  background-color: rgba(17, 33, 34, 1);
 }
 
-h1 {
-  position: absolute;
-  right: 60%;
-  letter-spacing: -6px;
-  display: block;
-  /* background-color: rgba(0, 0, 0, 0.8); */
-  padding: 4%;
-  background-color: rgba(255, 255, 255, 0.8);
-  transform: rotate(5deg);
-  box-shadow: #000 2px 2px 8px;
+#page {
+  position: relative;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: rgba(7, 56, 88, 0.9);
+  border-bottom: 1px dotted rgba(255, 255, 255, 0.1);
+}
+
+a, a:visited, label {
+  color: rgba(198, 164, 0, 0.9);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+input {
+  opacity: 0;
 }
 
 ul {
   list-style-type: none;
 }
 
+.label, input {
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 0.6em;
+}
+
+.icon {
+  font-size: 2em;
+}
+
 #artwork {
-  width: 500px;
-  height: 500px;
-  border: 4px solid #666;
+  height: 50%;
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 2px groove #1E2B2C;
 }
 
 #now-playing {
@@ -40,10 +56,28 @@ ul {
 
 #song-list {
   padding: 2%;
-  margin: 2%;
-  background-color: #efefef;
+  margin: 2% 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 2px groove #1E2B2C;
 }
 
-input {
-  font-family: 'Rock Salt', cursive;
+#playback, #playback #position {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  transition: 1s;
+  z-index: 0;
+}
+
+#playback {
+  background-size: 4px;
+}
+
+#playback #position {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  background-color: #091819;
+  border-right: 2px ridge #1E2B2C;
+  width: 0%;
 }

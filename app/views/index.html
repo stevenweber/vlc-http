@@ -1,63 +1,90 @@
 <html>
   <head>
     <title>
-      vlc-http
+      Music
     </title>
 
-    <link rel="stylesheet" href="/assets/css/index.css" />
     <link href='http://fonts.googleapis.com/css?family=Rock+Salt' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/css/index.css" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="/assets/javascripts/index.js"></script>
   </head>
 
   <body>
-    <h1>
-      vlc-http
-    </h1>
-
-    <img id="artwork" src="" />
-
-    <div id="not-playing">
-      <h2>
-        Nothing Playing
-      </h2>
+    <div id="playback">
+      <div id="position">
+      </div>
     </div>
 
-    <div id="now-playing">
-      <h2>
-        <span id="title">
-        </span>
-      </h2>
+    <div id="page">
+      <h1>
+      </h1>
 
-      <h3 id="artist">
-      </h3>
+      <img id="artwork" src="" />
 
-      <a href="/pause">
-        Play/Pause
-      </a>
+      <div id="not-playing">
+        <h2>
+          Nothing Playing
+        </h2>
+      </div>
 
-      <a href="/stop">
-        Stop
-      </a>
+      <div id="now-playing">
+
+        <h2>
+          <span class="label">
+            title
+          </span>
+
+          <span id="title">
+          </span>
+        </h2>
+
+        <h3>
+          <span class="label">
+            artist
+          </span>
+          <span id="artist">
+          </span>
+        </h3>
+
+        <a href="/pause">
+          <i class="icon fa fa-play">
+          </i>
+          <i class="icon fa fa-pause">
+          </i>
+        </a>
+
+        <a href="/stop">
+          <i class="icon fa fa-stop">
+          </i>
+        </a>
+      </div>
+
+      <div id="song-list">
+        <h4>
+          Available Songs
+        </h4>
+
+        <ul id="available-songs">
+        </ul>
+      </div>
+
+      <form id="upload-form"
+        enctype="multipart/form-data"
+        action="/api/songs"
+        method="post"
+        >
+
+        <label for="song-input">
+          + Song
+        </label>
+
+        <br />
+
+        <input id="song-input" type="file" name="song" />
+      </form>
     </div>
-
-    <div id="song-list">
-      <h4>
-        Available Songs
-      </h4>
-
-      <ul id="available-songs">
-      </ul>
-    </div>
-
-    <form id="upload-form"
-      enctype="multipart/form-data"
-      action="/api/songs"
-      method="post"
-      >
-
-      <input id="song-input" type="file" name="song" />
-    </form>
   </body>
 </html>

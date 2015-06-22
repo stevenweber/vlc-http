@@ -5,7 +5,7 @@ var request = require('request');
 
 var app = express();
 var songsDir = (__dirname + '/library');
-// var vlcHost = '10.0.100.2';
+// var vlcHost = '10.0.100.3';
 var vlcHost = '127.0.0.1';
 var vlcPort = '8080';
 
